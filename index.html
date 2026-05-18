@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Elephant Music — Music Production House, Seoul">
+<meta property="og:title" content="Elephant Music">
+<meta property="og:url" content="https://www.elephantmusic.kr">
+<title>Elephant Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{text-decoration:none;color:inherit}
+
+:root{
+  --bg:#ffffff;
+  --bg2:#f4f3f1;
+  --fg:#111110;
+  --fg3:#606060;
+  --fg4:#999896;
+  --line:rgba(0,0,0,0.09);
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --nav-h:54px;
+  --max:1080px;
+  --pad:clamp(1.25rem,4vw,3rem);
+}
+
+body{font-family:var(--sans);font-weight:300;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased}
+
+/* ── Nav ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:0.5px solid var(--line);z-index:100;
+}
+.nav-inner{
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad);
+  height:100%;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:0.6rem;cursor:pointer}
+.nav-logo img{width:24px;height:24px;object-fit:contain}
+.nav-logo-text{font-family:var(--serif);font-size:14px;letter-spacing:0.06em}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{
+  font-size:11px;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--fg4);transition:color 0.15s;cursor:pointer;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--fg)}
+.nav-links a.active{border-bottom:0.5px solid var(--fg);padding-bottom:2px}
+
+/* ── Page ── */
+.page{display:none;padding-top:var(--nav-h)}
+.page.active{display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* ── ph (placeholder) ── */
+.ph{width:100%;height:100%;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.ph span{font-size:9px;color:var(--fg4);letter-spacing:0.1em}
+
+/* ── Footer ── */
+.footer{
+  border-top:0.5px solid var(--line);
+  padding:1.5rem var(--pad);
+  max-width:var(--max);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-family:var(--serif);font-size:13px;color:var(--fg)}
+.footer-copy{font-size:11px;color:var(--fg4);letter-spacing:0.08em}
+
+/* ══ MAIN ══ */
+
+/* Hero — full-width image, logo centered */
+.hero{
+  position:relative;
+  width:100%;aspect-ratio:16/7;
+  background:var(--bg2);overflow:hidden;
+}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.hero-ph span{font-size:10px;color:var(--fg4);letter-spacing:0.12em}
+
+/* Services strip — 2 items, text only */
+.services-strip{
+  max-width:var(--max);margin:0 auto;
+  padding:3rem var(--pad);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--line);border-bottom:0.5px solid var(--line);
+}
+.svc{
+  background:var(--bg);
+  padding:2rem 2rem;
+}
+.svc-num{font-size:11px;letter-spacing:0.16em;color:var(--fg4);margin-bottom:0.75rem}
+.svc-title{font-family:var(--serif);font-size:22px;color:var(--fg);line-height:1.2;margin-bottom:1rem}
+.svc-tags{display:flex;flex-wrap:wrap;gap:0 1rem}
+.svc-tag{
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--fg4);
+}
+
+/* Recent grid — 5 covers, no labels */
+.recent{
+  max-width:var(--max);margin:0 auto;
+  padding:0 var(--pad) 0;
+}
+.recent-label{
+  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--fg4);padding:2rem 0 1rem;
+  border-bottom:0.5px solid var(--line);margin-bottom:0;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:default;
+}
+.recent-label span{cursor:pointer;transition:color 0.15s}
+.recent-label span:hover{color:var(--fg)}
+.recent-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:1px;background:var(--line);border-bottom:0.5px solid var(--line);
+}
+.rc{cursor:pointer;overflow:hidden;transition:opacity 0.15s}
+.rc:hover{opacity:0.7}
+.rc-img{aspect-ratio:1/1;background:var(--bg2)}
+.rc-img img{width:100%;height:100%;object-fit:cover}
+.rc-meta{padding:0.6rem 0.75rem 0.8rem}
+.rc-artist{font-size:12px;color:var(--fg);margin-bottom:1px}
+.rc-album{font-size:11px;color:var(--fg4)}
+
+/* ══ WORKS ══ */
+.works-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad) 4rem}
+.works-head{
+  font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg4);
+  padding:2rem 0 1rem;border-bottom:0.5px solid var(--line);
+  display:flex;gap:2rem;align-items:center;
+}
+.ftab{color:var(--fg4);cursor:pointer;transition:color 0.12s}
+.ftab.active{color:var(--fg)}
+.ftab:hover{color:var(--fg3)}
+
+.works-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--line);border-bottom:0.5px solid var(--line);
+}
+.wc{cursor:pointer;overflow:hidden;transition:opacity 0.15s;background:var(--bg)}
+.wc:hover{opacity:0.7}
+.wc-img{aspect-ratio:1/1;background:var(--bg2)}
+.wc-img img{width:100%;height:100%;object-fit:cover}
+.wc-meta{padding:0.7rem 0.8rem 0.9rem}
+.wc-artist{font-size:12px;color:var(--fg);margin-bottom:2px}
+.wc-album{font-size:11px;color:var(--fg3);margin-bottom:5px}
+.wc-role{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--fg4)}
+
+/* ══ ARTISTS ══ */
+.artists-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad) 4rem}
+.artists-head{
+  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--fg4);
+  padding:2rem 0 1rem;border-bottom:0.5px solid var(--line);margin-bottom:0;
+}
+
+/* full-width artist block */
+.artist-block{
+  display:grid;grid-template-columns:2fr 3fr;
+  gap:1px;background:var(--line);
+  border-bottom:0.5px solid var(--line);
+}
+.artist-block+.artist-block{margin-top:1px}
+.ab-photo{aspect-ratio:3/4;background:var(--bg2);overflow:hidden}
+.ab-photo img{width:100%;height:100%;object-fit:cover}
+.ab-info{
+  background:var(--bg);
+  padding:2.5rem 2.5rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.ab-name{font-family:var(--serif);font-size:clamp(28px,4vw,48px);color:var(--fg);line-height:1.1;margin-bottom:0.5rem}
+.ab-genre{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg4);margin-bottom:2rem}
+.ab-works{display:flex;flex-direction:column;gap:0;margin-top:auto}
+.ab-works-label{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--fg4);margin-bottom:0.75rem}
+.ab-work-row{
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.5rem 0;border-top:0.5px solid var(--line);
+}
+.ab-thumb{width:36px;height:36px;overflow:hidden;background:var(--bg2);flex-shrink:0}
+.ab-thumb img{width:100%;height:100%;object-fit:cover}
+.ab-wtitle{font-size:11px;color:var(--fg)}
+.ab-wrole{font-size:11px;color:var(--fg4);margin-top:1px}
+
+/* ══ CONTACT ══ */
+.contact-wrap{max-width:var(--max);margin:0 auto;padding:4rem var(--pad)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.contact-heading{font-family:var(--serif);font-size:clamp(36px,4vw,54px);line-height:1.1;color:var(--fg);margin-bottom:2.5rem}
+.contact-heading em{font-style:italic;color:var(--fg3)}
+.c-row{padding:0.85rem 0;border-bottom:0.5px solid var(--line)}
+.c-label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--fg4);display:block;margin-bottom:0.3rem}
+.c-value{font-size:13px;color:var(--fg)}
+.c-value a{transition:opacity 0.15s}
+.c-value a:hover{opacity:0.4}
+.c-note{font-size:13px;color:var(--fg4);line-height:1.85;margin-top:2rem}
+
+/* ── Responsive ── */
+@media(max-width:760px){
+  .hero{aspect-ratio:4/3}
+  .services-strip{grid-template-columns:1fr}
+  .recent-grid{grid-template-columns:repeat(3,1fr)}
+  .works-grid{grid-template-columns:repeat(2,1fr)}
+  .artist-block{grid-template-columns:1fr}
+  .ab-photo{aspect-ratio:16/9}
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+@media(max-width:480px){
+  .recent-grid{grid-template-columns:repeat(2,1fr)}
+  .footer{flex-direction:column;gap:0.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('main')">
+      <img src="images/logo.png" alt="Elephant Music" onerror="this.style.display='none'">
+      <span class="nav-logo-text">ELEPHANT MUSIC</span>
+    </div>
+    <div class="nav-links">
+      <a id="nav-main" class="active" onclick="showPage('main')">Main</a>
+      <a id="nav-works" onclick="showPage('works')">Works</a>
+      <a id="nav-artists" onclick="showPage('artists')">Artists</a>
+      <a id="nav-contact" onclick="showPage('contact')">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<div id="page-main" class="page active">
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="images/hero.jpg" alt="Elephant Music" onerror="this.style.display='none'">
+    <div class="hero-ph"><span>Hero Image</span></div>
+  </div>
+
+  <!-- Services -->
+  <div class="services-strip">
+    <div class="svc">
+      <div class="svc-num">01</div>
+      <div class="svc-title">Music Production</div>
+      <div class="svc-tags">
+        <span class="svc-tag">Production</span>
+        <span class="svc-tag">Recording</span>
+        <span class="svc-tag">Mixing</span>
+        <span class="svc-tag">Mastering</span>
+      </div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">02</div>
+      <div class="svc-title">Artist Development<br>&amp; Management</div>
+      <div class="svc-tags">
+        <span class="svc-tag">Development</span>
+        <span class="svc-tag">Management</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Works -->
+  <div class="recent wrap">
+    <div class="recent-label">
+      Recent Works
+      <span onclick="showPage('works')">All →</span>
+    </div>
+    <div class="recent-grid">
+      <div class="rc" onclick="showPage('works')">
+        <div class="rc-img"><img src="images/works/eaeon-guiltfree.jpg" alt=""></div>
+        <div class="rc-meta"><div class="rc-artist">이이언</div><div class="rc-album">guilt free</div></div>
+      </div>
+      <div class="rc" onclick="showPage('works')">
+        <div class="rc-img"><img src="images/works/bnj-everything.jpg" alt=""></div>
+        <div class="rc-meta"><div class="rc-artist">브랜뉴직</div><div class="rc-album">EVERYTHING</div></div>
+      </div>
+      <div class="rc" onclick="showPage('works')">
+        <div class="rc-img"><img src="images/works/jhwa-flowernight.jpg" alt=""></div>
+        <div class="rc-meta"><div class="rc-artist">제이화</div><div class="rc-album">꽃 같은 밤</div></div>
+      </div>
+      <div class="rc" onclick="showPage('works')">
+        <div class="rc-img"><img src="images/works/ss-album.jpg" alt=""></div>
+        <div class="rc-meta"><div class="rc-artist">SundaySunset</div><div class="rc-album">앨범</div></div>
+      </div>
+      <div class="rc" onclick="showPage('works')">
+        <div class="rc-img"><img src="images/works/cmh-ambit.jpg" alt=""></div>
+        <div class="rc-meta"><div class="rc-artist">ChoiMinHo Quintet</div><div class="rc-album">ambit</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer wrap">
+    <span class="footer-logo">ELEPHANT MUSIC</span>
+    <span class="footer-copy">© 2026 Elephant Music. All rights reserved.</span>
+  </div>
+</div>
+
+<!-- ══ WORKS ══ -->
+<div id="page-works" class="page">
+  <div class="works-wrap">
+    <div class="works-head">
+      <span class="ftab active" onclick="filterWorks('all',this)">All</span>
+      <span class="ftab" onclick="filterWorks('eaeon',this)">이이언</span>
+      <span class="ftab" onclick="filterWorks('bnj',this)">브랜뉴직</span>
+      <span class="ftab" onclick="filterWorks('3rdcoast',this)">3rdCOAST</span>
+      <span class="ftab" onclick="filterWorks('jhwa',this)">제이화</span>
+      <span class="ftab" onclick="filterWorks('ss',this)">SundaySunset</span>
+      <span class="ftab" onclick="filterWorks('cmh',this)">ChoiMinHo Quintet</span>
+    </div>
+    <div class="works-grid" id="works-grid">
+
+      <!-- 이이언 -->
+      <div class="wc" data-role="eaeon">
+        <div class="wc-img"><img src="images/works/eaeon-guiltfree.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">이이언</div><div class="wc-album">guilt free</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="eaeon">
+        <div class="wc-img"><img src="images/works/eaeon-christmas.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">이이언</div><div class="wc-album">All I Want for Christmas Is You</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="eaeon">
+        <div class="wc-img"><img src="images/works/eaeon-realize.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">이이언</div><div class="wc-album">Realize</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+      <div class="wc" data-role="eaeon">
+        <div class="wc-img"><img src="images/works/eaeon-jarang.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">이이언</div><div class="wc-album">자랑</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+      <div class="wc" data-role="eaeon">
+        <div class="wc-img"><img src="images/works/eaeon-mannequin.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">이이언</div><div class="wc-album">슬픈 마네킹</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+
+      <!-- 브랜뉴직 -->
+      <div class="wc" data-role="bnj">
+        <div class="wc-img"><img src="images/works/bnj-everything.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">브랜뉴직</div><div class="wc-album">EVERYTHING</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="bnj">
+        <div class="wc-img"><img src="images/works/bnj-phonetalk.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">브랜뉴직</div><div class="wc-album">Phone Talk</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="bnj">
+        <div class="wc-img"><img src="images/works/bnj-sunny.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">브랜뉴직</div><div class="wc-album">Sunny</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+      <div class="wc" data-role="bnj">
+        <div class="wc-img"><img src="images/works/bnj-album.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">브랜뉴직</div><div class="wc-album">Album</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+
+      <!-- 3rdCOAST -->
+      <div class="wc" data-role="3rdcoast">
+        <div class="wc-img"><img src="images/works/3rdcoast-alteredsurface.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">3rdCOAST</div><div class="wc-album">Altered Surface</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+
+      <!-- 제이화 -->
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-flowernight.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">꽃 같은 밤</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-comeaswind.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">Come As Wind</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-stop.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">STOP Apologizing</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-zoo.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">ZOO</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-eumgiga.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">음기가 필요해</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-neoreul.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">너를 만나</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-stagefright.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">무대공포증</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+      <div class="wc" data-role="jhwa">
+        <div class="wc-img"><img src="images/works/jhwa-substar.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">제이화</div><div class="wc-album">섭스타</div><div class="wc-role">Mixing · Mastering</div></div>
+      </div>
+
+      <!-- SundaySunset -->
+      <div class="wc" data-role="ss">
+        <div class="wc-img"><img src="images/works/ss-album.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">SundaySunset</div><div class="wc-album">앨범</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+
+      <!-- ChoiMinHo Quintet -->
+      <div class="wc" data-role="cmh">
+        <div class="wc-img"><img src="images/works/cmh-ambit.jpg" alt=""></div>
+        <div class="wc-meta"><div class="wc-artist">ChoiMinHo Quintet</div><div class="wc-album">ambit</div><div class="wc-role">Production · Mixing</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer wrap">
+    <span class="footer-logo">ELEPHANT MUSIC</span>
+    <span class="footer-copy">© 2026 Elephant Music. All rights reserved.</span>
+  </div>
+</div>
+
+<!-- ══ ARTISTS ══ -->
+<div id="page-artists" class="page">
+  <div class="artists-wrap">
+    <div class="artists-head">Artist Development &amp; Management</div>
+
+    <div class="artist-block">
+      <div class="ab-photo"><img src="images/artists/ss-profile.jpg" alt="SundaySunset"></div>
+      <div class="ab-info">
+        <div>
+          <div class="ab-name">Sunday<br>Sunset</div>
+          <div class="ab-genre">Indie Pop · Alternative</div>
+        </div>
+        <div class="ab-works">
+          <div class="ab-works-label">Works</div>
+          <div class="ab-work-row">
+            <div class="ab-thumb"><img src="images/works/ss-album.jpg" alt=""></div>
+            <div><div class="ab-wtitle">앨범</div><div class="ab-wrole">Production · Mixing</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="artist-block">
+      <div class="ab-photo"><img src="images/artists/cmh-profile.jpg" alt="ChoiMinHo Quintet"></div>
+      <div class="ab-info">
+        <div>
+          <div class="ab-name">ChoiMinHo<br>Quintet</div>
+          <div class="ab-genre">Jazz · Contemporary</div>
+        </div>
+        <div class="ab-works">
+          <div class="ab-works-label">Works</div>
+          <div class="ab-work-row">
+            <div class="ab-thumb"><img src="images/works/cmh-ambit.jpg" alt=""></div>
+            <div><div class="ab-wtitle">ambit</div><div class="ab-wrole">Production · Mixing</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer wrap">
+    <span class="footer-logo">ELEPHANT MUSIC</span>
+    <span class="footer-copy">© 2026 Elephant Music. All rights reserved.</span>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div id="page-contact" class="page">
+  <div class="contact-wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="contact-heading">Start a<br><em>project</em></div>
+        <div class="c-row">
+          <span class="c-label">Email</span>
+          <div class="c-value"><a href="mailto:coolmixing@gmail.com">coolmixing@gmail.com</a></div>
+        </div>
+        <div class="c-row">
+          <span class="c-label">Instagram</span>
+          <div class="c-value"><a href="https://instagram.com/elephantmusic.kr" target="_blank">@elephantmusic.kr</a></div>
+        </div>
+      </div>
+      <div>
+        <div class="c-row">
+          <span class="c-label">Studio</span>
+          <div class="c-value">SoundPool Studios, Seoul</div>
+        </div>
+        <div class="c-row">
+          <span class="c-label">Hours</span>
+          <div class="c-value">Mon – Fri &nbsp; 10:00 – 18:00</div>
+        </div>
+        <div class="c-note">
+          데모 파일은 WeTransfer 또는 Google Drive 링크로 보내주세요.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer wrap">
+    <span class="footer-logo">ELEPHANT MUSIC</span>
+    <span class="footer-copy">© 2026 Elephant Music. All rights reserved.</span>
+  </div>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function filterWorks(role,tab){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  const grid=document.getElementById('works-grid');
+  const cards=[...grid.querySelectorAll('.wc')];
+  cards.forEach(c=>{c.style.display=(role==='all'||c.dataset.role===role)?'':'none'});
+  cards.filter(c=>c.style.display!=='none').forEach(c=>grid.appendChild(c));
+}
+</script>
+</body>
+</html>
