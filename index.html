@@ -671,6 +671,21 @@ function toggleMobileMenu(){
 function closeMobileMenu(){
   document.getElementById('mobile-menu').style.display='none';
 }
+// Mac 한글 파일명(NFD) 대응: 이미지 실패 시 NFD/NFC 형태로 재시도
+(function(){
+  function retry(img){
+    if(img.dataset.retried) return;
+    img.dataset.retried='1';
+    const s=decodeURI(img.getAttribute('src'));
+    const alt=s.normalize('NFD')!==s?s.normalize('NFD'):s.normalize('NFC');
+    if(alt!==s) img.src=alt;
+  }
+  document.querySelectorAll('img').forEach(img=>{
+    img.addEventListener('error',()=>retry(img));
+    if(img.complete && img.naturalWidth===0) retry(img);
+  });
+})();
+
 function filterWorks(role,tab){
   document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
   tab.classList.add('active');
